@@ -7,6 +7,7 @@ DATA=`/bin/date +%Y-%m-%d_%H-%M`
 # Destino do bkp
 PASTA="/home/usuario/backup"
 ARQUIVO="$PASTA/medclin_$DATA.sql"
+ARQUIVO_COMPACTADO="nome_$DATA.tar.gz"
 
 # variaveis do MySQL
 HOST="localhost"
@@ -19,7 +20,7 @@ mysqldump -h $HOST -u $USER -p$PASSWORD $DATABASE > $ARQUIVO
 # Aguardar 30s
 sleep 30
 
-tar -czf /$PASTA/medclin_$DATA.tar.gz $ARQUIVO
+tar -czf /$PASTA/$ARQUIVO_COMPACTADO $ARQUIVO
 
 # Aguardar 5s
 sleep 5
@@ -28,7 +29,7 @@ sleep 5
 rm $ARQUIVO
 
 # Enviando arquivo compactado para o google drive
-gdrive upload --parent id_da_pasta $PASTA/medclin_$DATA.tar.gz
+gdrive upload --parent id_da_pasta $PASTA/$ARQUIVO_COMPACTADO
 
 # Depois basta configurar o crontab -e
 # Ex: para executar todos os dias às 22h00
