@@ -31,4 +31,5 @@ rm $ARQUIVO
 gdrive upload --parent id_da_pasta $PASTA/medclin_$DATA.tar.gz
 
 # Depois basta configurar o crontab -e
+# Ex: para executar todos os dias às 22h00
 # 00 22 * * * /bin/sh /local_do_arquivo/bkp_medclin.sh
