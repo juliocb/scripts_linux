@@ -29,3 +29,6 @@ rm $ARQUIVO
 
 # Enviando arquivo compactado para o google drive
 gdrive upload --parent id_da_pasta $PASTA/medclin_$DATA.tar.gz
+
+# Depois basta configurar o crontab -e
+# 00 22 * * * /bin/sh /local_do_arquivo/bkp_medclin.sh
