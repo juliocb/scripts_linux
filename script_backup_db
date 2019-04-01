@@ -1,0 +1,31 @@
+#!/bin/sh
+# bkp_medclin.sh
+
+# DATA HORA
+DATA=`/bin/date +%Y-%m-%d_%H-%M`
+
+# Destino do bkp
+PASTA="/home/usuario/backup"
+ARQUIVO="$PASTA/medclin_$DATA.sql"
+
+# variaveis do MySQL
+HOST="localhost"
+USER="usuario"
+PASSWORD="senha"
+DATABASE="banco_de_dados"
+
+mysqldump -h $HOST -u $USER -p$PASSWORD $DATABASE > $ARQUIVO
+
+# Aguardar 30s
+sleep 30
+
+tar -czf /$PASTA/medclin_$DATA.tar.gz $ARQUIVO
+
+# Aguardar 5s
+sleep 5
+
+# Deletando o arquivo sql
+rm $ARQUIVO
+
+# Enviando arquivo compactado para o google drive
+gdrive upload --parent id_da_pasta $PASTA/medclin_$DATA.tar.gz
